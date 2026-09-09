@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrinho — ANCÉS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="navbar scrolled" id="navbar">
+    <div class="navbar__inner">
+      <nav class="navbar__links navbar__links--left">
+        <a href="colecoes.html">Coleções</a>
+      </nav>
+      <a href="index.html" class="navbar__logo" style="color:var(--charcoal)">ANCÉS</a>
+      <nav class="navbar__links navbar__links--right">
+        <a href="sobre.html">Sobre</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+      <button class="navbar__burger" id="burger" aria-label="Menu">
+        <span style="background:var(--charcoal)"></span>
+        <span style="background:var(--charcoal)"></span>
+        <span style="background:var(--charcoal)"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu__close" id="menuClose">✕</button>
+    <nav>
+      <a href="colecoes.html">Coleções</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <div class="mobile-menu__social"><a href="#">Instagram</a><a href="#">WhatsApp</a></div>
+  </div>
+
+  <main style="padding-top:80px; min-height:100vh; background:var(--ivory)">
+    <div class="page-header">
+      <p class="eyebrow">O Seu</p>
+      <h1 class="section-title">Carrinho</h1>
+      <div class="divider"></div>
+    </div>
+
+    <!-- Cart with items -->
+    <div class="cart-layout" id="cartWithItems">
+      <div>
+        <div id="cartItemsList"></div>
+      </div>
+
+      <div class="cart-summary">
+        <h3>Resumo do Pedido</h3>
+        <div class="coupon-row">
+          <input type="text" id="couponInput" placeholder="Código de desconto" />
+          <button onclick="applyCoupon()">Aplicar</button>
+        </div>
+        <p id="couponMsg" style="font-family:var(--sans);font-size:.75rem;color:var(--gold);margin-bottom:12px;display:none">✓ Desconto de 10% aplicado</p>
+        <div id="summaryLines"></div>
+        <div class="summary-total">
+          <span>Total</span>
+          <span id="totalPrice"></span>
+        </div>
+        <a href="checkout.html" class="btn btn--gold" style="width:100%;justify-content:center;margin-bottom:12px">Finalizar Compra</a>
+        <a href="colecoes.html" style="display:block;text-align:center;font-family:var(--sans);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(17,17,17,.35);transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(17,17,17,.35)'">Continuar a Comprar</a>
+      </div>
+    </div>
+
+    <!-- Empty cart -->
+    <div class="empty-state" id="emptyCart" style="display:none">
+      <div style="font-size:2.5rem;color:rgba(17,17,17,.15);margin-bottom:20px">🛍</div>
+      <h3>O seu carrinho está vazio</h3>
+      <p>Descubra as nossas joias exclusivas.</p>
+      <a href="colecoes.html" class="btn btn--gold" style="margin-top:4px">Descobrir Coleção</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand"><h2>ANCÉS</h2><p>Joias artesanais de luxo.</p></div>
+        <div class="footer__col"><h4>Coleções</h4><ul><li><a href="colecoes.html">Ver Tudo</a></li></ul></div>
+        <div class="footer__col"><h4>Empresa</h4><ul><li><a href="sobre.html">Sobre</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
+        <div class="footer__col"><h4>Apoio</h4><ul><li><a href="#">Envios</a></li><li><a href="#">Privacidade</a></li></ul></div>
+      </div>
+      <div class="footer__bottom"><p>&copy; 2026 ANCÉS.</p></div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Demo cart state
+    let cart = [
+      { product: PRODUCTS[0], qty: 1 },
+      { product: PRODUCTS[4], qty: 1 },
+    ];
+    let discountApplied = false;
+
+    function renderCart() {
+      if (cart.length === 0) {
+        document.getElementById("cartWithItems").style.display = "none";
+        document.getElementById("emptyCart").style.display = "block";
+        return;
+      }
+      document.getElementById("cartWithItems").style.display = "grid";
+      document.getElementById("emptyCart").style.display = "none";
+
+      document.getElementById("cartItemsList").innerHTML = cart.map((item, i) => `
+        <div class="cart-item">
+          <a href="produto.html?id=${item.product.id}" class="cart-item__img">
+            <img src="${item.product.image}" alt="${item.product.name}" />
+          </a>
+          <div class="cart-item__info">
+            <span class="cart-item__cat">${item.product.categoryLabel}</span>
+            <h3 class="cart-item__name">${item.product.name}</h3>
+            <p class="cart-item__mat">${item.product.materials}</p>
+            <div class="cart-item__bottom">
+              <div class="qty-ctrl">
+                <button class="qty-btn" onclick="updateQty(${i}, -1)">−</button>
+                <span class="qty-val">${item.qty}</span>
+                <button class="qty-btn" onclick="updateQty(${i}, 1)">+</button>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px">
+                <span class="cart-item__price">${formatPrice(item.product.price * item.qty)}</span>
+                <button class="btn-remove" onclick="removeItem(${i})" title="Remover">✕</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      const subtotal = cart.reduce((s, i) => s + i.product.price * i.qty, 0);
+      const discount = discountApplied ? subtotal * 0.1 : 0;
+      const shipping = subtotal > 300 ? 0 : 9.9;
+      const total = subtotal - discount + shipping;
+
+      let lines = `
+        <div class="summary-line"><span>Subtotal</span><span>${formatPrice(subtotal)}</span></div>
+        ${discount > 0 ? `<div class="summary-line discount"><span>Desconto (10%)</span><span>-${formatPrice(discount)}</span></div>` : ""}
+        <div class="summary-line"><span>Envio</span><span>${shipping === 0 ? "Gratuito" : formatPrice(shipping)}</span></div>
+        ${subtotal < 300 ? `<p style="font-family:var(--sans);font-size:.68rem;color:rgba(17,17,17,.35);margin-top:4px">Envio gratuito acima de 300€</p>` : ""}
+      `;
+      document.getElementById("summaryLines").innerHTML = lines;
+      document.getElementById("totalPrice").textContent = formatPrice(total);
+    }
+
+    function updateQty(index, delta) {
+      cart[index].qty += delta;
+      if (cart[index].qty <= 0) cart.splice(index, 1);
+      renderCart();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function applyCoupon() {
+      const input = document.getElementById("couponInput").value.trim().toUpperCase();
+      const msg = document.getElementById("couponMsg");
+      if (input === "ANCES10" || input === "DESCONTO") {
+        discountApplied = true;
+        msg.style.display = "block";
+        renderCart();
+      } else {
+        msg.textContent = "✕ Código inválido";
+        msg.style.color = "#e06060";
+        msg.style.display = "block";
+        setTimeout(() => { msg.style.display = "none"; msg.style.color = "var(--gold)"; msg.textContent = "✓ Desconto de 10% aplicado"; }, 2500);
+      }
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

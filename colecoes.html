@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coleções — ANCÉS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="navbar scrolled" id="navbar">
+    <div class="navbar__inner">
+      <nav class="navbar__links navbar__links--left">
+        <a href="colecoes.html">Coleções</a>
+        <a href="colecoes.html">Novidades</a>
+      </nav>
+      <a href="index.html" class="navbar__logo" style="color:var(--charcoal)">ANCÉS</a>
+      <nav class="navbar__links navbar__links--right">
+        <a href="sobre.html">Sobre</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="carrinho.html" class="navbar__cart" style="color:var(--charcoal)" aria-label="Carrinho">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </a>
+      </nav>
+      <button class="navbar__burger" id="burger" aria-label="Menu" style="--s-color:var(--charcoal)">
+        <span style="background:var(--charcoal)"></span>
+        <span style="background:var(--charcoal)"></span>
+        <span style="background:var(--charcoal)"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu__close" id="menuClose">✕</button>
+    <nav>
+      <a href="colecoes.html">Coleções</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="carrinho.html">Carrinho</a>
+    </nav>
+    <div class="mobile-menu__social"><a href="#">Instagram</a><a href="#">WhatsApp</a></div>
+  </div>
+
+  <main style="padding-top:80px; min-height:100vh; background:var(--ivory)">
+
+    <!-- Header -->
+    <div class="page-header">
+      <p class="eyebrow">ANCÉS</p>
+      <h1 class="section-title">As Nossas Coleções</h1>
+      <div class="divider"></div>
+    </div>
+
+    <div class="colecoes-layout">
+
+      <!-- Sidebar -->
+      <aside class="colecoes-sidebar sticky">
+        <div class="sidebar-section">
+          <h3>Categorias</h3>
+          <button class="sidebar-filter active" data-cat="all">Todas as Peças</button>
+          <button class="sidebar-filter" data-cat="colares">Colares</button>
+          <button class="sidebar-filter" data-cat="brincos">Brincos</button>
+          <button class="sidebar-filter" data-cat="pulseiras">Pulseiras</button>
+          <button class="sidebar-filter" data-cat="aneis">Anéis</button>
+          <button class="sidebar-filter" data-cat="conjuntos">Conjuntos</button>
+        </div>
+        <div style="background:var(--cream); padding:20px; border:1px solid rgba(17,17,17,0.05)">
+          <p class="eyebrow eyebrow--dark" style="margin-bottom:6px">Encomenda Especial</p>
+          <p style="font-family:var(--serif);font-size:.95rem;font-weight:300;color:var(--charcoal);margin-bottom:12px;line-height:1.5">
+            Crie a sua joia personalizada.
+          </p>
+          <a href="contacto.html" style="font-family:var(--sans);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)">Saiba Mais →</a>
+        </div>
+      </aside>
+
+      <!-- Main -->
+      <div class="colecoes-main">
+        <div class="colecoes-toolbar">
+          <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Pesquisar joias..." />
+          </div>
+          <select class="sort-select" id="sortSelect">
+            <option value="default">Em Destaque</option>
+            <option value="price-asc">Preço: Menor</option>
+            <option value="price-desc">Preço: Maior</option>
+            <option value="name-asc">Nome A-Z</option>
+          </select>
+          <span class="results-count" id="resultsCount"></span>
+        </div>
+        <div class="products__grid" id="productsGrid"></div>
+        <div class="empty-state hidden" id="emptyState">
+          <h3>Nenhuma peça encontrada</h3>
+          <p>Tente outro termo de pesquisa ou categoria.</p>
+          <button class="btn btn--outline" onclick="resetFilters()">Ver Tudo</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <h2>ANCÉS</h2>
+          <p>Joias artesanais de luxo para mulheres que valorizam a exclusividade.</p>
+        </div>
+        <div class="footer__col"><h4>Coleções</h4><ul>
+          <li><a href="colecoes.html">Colares</a></li>
+          <li><a href="colecoes.html">Brincos</a></li>
+          <li><a href="colecoes.html">Pulseiras</a></li>
+          <li><a href="colecoes.html">Anéis</a></li>
+        </ul></div>
+        <div class="footer__col"><h4>Empresa</h4><ul>
+          <li><a href="sobre.html">Sobre ANCÉS</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul></div>
+        <div class="footer__col"><h4>Apoio</h4><ul>
+          <li><a href="#">Envios</a></li>
+          <li><a href="#">Devoluções</a></li>
+          <li><a href="#">Privacidade</a></li>
+        </ul></div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 ANCÉS. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    let activeCategory = "all";
+    let searchQuery = "";
+    let sortBy = "default";
+
+    function getFiltered() {
+      let result = [...PRODUCTS];
+      if (activeCategory !== "all") result = result.filter(p => p.category === activeCategory);
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        result = result.filter(p => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q));
+      }
+      if (sortBy === "price-asc") result.sort((a,b) => a.price - b.price);
+      if (sortBy === "price-desc") result.sort((a,b) => b.price - a.price);
+      if (sortBy === "name-asc") result.sort((a,b) => a.name.localeCompare(b.name));
+      return result;
+    }
+
+    function renderGrid() {
+      const products = getFiltered();
+      const grid = document.getElementById("productsGrid");
+      const empty = document.getElementById("emptyState");
+      const count = document.getElementById("resultsCount");
+      if (products.length === 0) {
+        grid.innerHTML = "";
+        empty.classList.remove("hidden");
+      } else {
+        empty.classList.add("hidden");
+        grid.innerHTML = products.map(productCardHTML).join("");
+        initReveal();
+      }
+      count.textContent = products.length + (products.length === 1 ? " peça" : " peças");
+    }
+
+    function resetFilters() {
+      activeCategory = "all";
+      searchQuery = "";
+      sortBy = "default";
+      document.getElementById("searchInput").value = "";
+      document.getElementById("sortSelect").value = "default";
+      document.querySelectorAll(".sidebar-filter").forEach(b => b.classList.toggle("active", b.dataset.cat === "all"));
+      renderGrid();
+    }
+
+    // Init filters from URL param
+    const urlCat = new URLSearchParams(location.search).get("cat");
+    if (urlCat) activeCategory = urlCat;
+
+    document.querySelectorAll(".sidebar-filter").forEach(btn => {
+      if (btn.dataset.cat === activeCategory) btn.classList.add("active");
+      else btn.classList.remove("active");
+      btn.addEventListener("click", () => {
+        activeCategory = btn.dataset.cat;
+        document.querySelectorAll(".sidebar-filter").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderGrid();
+      });
+    });
+
+    document.getElementById("searchInput").addEventListener("input", e => {
+      searchQuery = e.target.value;
+      renderGrid();
+    });
+
+    document.getElementById("sortSelect").addEventListener("change", e => {
+      sortBy = e.target.value;
+      renderGrid();
+    });
+
+    renderGrid();
+  </script>
+</body>
+</html>
