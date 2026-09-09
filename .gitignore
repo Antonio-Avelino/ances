@@ -3,3 +3,7 @@
 npm-debug.log
 yarn-error.log
 next.config.ts
+src
+package.json
+package-lock.json
+tsconfig.json
